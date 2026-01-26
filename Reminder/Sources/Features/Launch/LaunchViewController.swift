@@ -18,6 +18,7 @@ class LaunchViewController: UIViewController {
     
     private func setup() {
         self.view.addSubview(contentView)
+        self.navigationController?.navigationBar.isHidden = true
         setupConstraints()
     }
     
