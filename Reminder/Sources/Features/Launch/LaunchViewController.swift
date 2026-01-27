@@ -14,6 +14,7 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupGesture()
     }
     
     private func setup() {
@@ -21,6 +22,7 @@ class LaunchViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = Colors.primaryRedBase
         setupConstraints()
+        setupGesture()
     }
     
     private func setupConstraints() {
@@ -31,6 +33,20 @@ class LaunchViewController: UIViewController {
         contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         contentView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupGesture(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showLoginBottomSheet))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    private func showLoginBottomSheet(){
+        let loginBottomSheet = LoginBottonSheetViewController()
+        loginBottomSheet.modalTransitionStyle = .crossDissolve
+        self.present(loginBottomSheet, animated: false) {
+            loginBottomSheet.animateShow()
+        }
         
     }
 
