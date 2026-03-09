@@ -12,7 +12,7 @@ class LoginBottomSheetView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Entre para acessar suas receitas"
+        label.text = "login.label.title".localized
         return label
     }()
     
@@ -26,7 +26,7 @@ class LoginBottomSheetView: UIView {
     
     private let emailTextField: UITextField = {
         let text = UITextField()
-        text.placeholder = "email@exemplo.com"
+        text.placeholder = "login.email.placeholter".localized
         text.borderStyle = .roundedRect
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
@@ -34,7 +34,7 @@ class LoginBottomSheetView: UIView {
     
     private let passwordTextField: UITextField = {
         let text = UITextField()
-        text.placeholder = "senha"
+        text.placeholder = "login.password.placeholder".localized
         text.borderStyle = .roundedRect
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
@@ -42,7 +42,7 @@ class LoginBottomSheetView: UIView {
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Entrar", for: .normal)
+        button.setTitle("login.button.tittle".localized, for: .normal)
         button.backgroundColor = Colors.primaryRedBase
         button.layer.cornerRadius = Metrics.tiny
         button.translatesAutoresizingMaskIntoConstraints = false
