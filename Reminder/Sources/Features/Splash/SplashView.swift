@@ -1,5 +1,5 @@
 //
-//  LaunchView.swift
+//  SplashView.swift
 //  Reminder
 //
 //  Created by Paulo Matheus on 19/01/26.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class LaunchView: UIView {
+class SplashView: UIView {
     
     private let logoImageView: UIImageView = {
         let image = UIImageView()

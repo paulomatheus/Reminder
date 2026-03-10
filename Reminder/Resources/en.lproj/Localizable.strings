@@ -11,7 +11,8 @@
 "login.email.placeholter" = "email@exemplo.com";
 "login.password.placeholder" = "senha";
 "login.button.tittle" = "Entrar";
-
+"login.login.label.title" = "E-mail";
+"login.passwordText.label.title" = "Senha";
 
 /* MARK: - HOME SCREEN */
 /* MARK: - Receipts SCREEN */

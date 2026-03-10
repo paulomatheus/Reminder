@@ -1,5 +1,5 @@
 //
-//  LaunchViewController.swift
+//  SplashViewController.swift
 //  Reminder
 //
 //  Created by Paulo Matheus on 19/01/26.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class LaunchViewController: UIViewController {
-    let contentView = LaunchView()
+class SplashViewController: UIViewController {
+    let contentView = SplashView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
