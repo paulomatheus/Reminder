@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class LoginBottonSheetViewController: UIViewController {
+    var mainNavigation: UINavigationController?
     let loginView = LoginBottomSheetView()
     let viewModel = LoginBottomSheetViewModel()
     var handlerAreaHeight: CGFloat = 50.0
@@ -18,6 +19,7 @@ class LoginBottonSheetViewController: UIViewController {
         loginView.delegate = self
         setupUI()
         setupGesture()
+        bindViewModel()
     }
     
     private func setupUI(){
@@ -34,6 +36,16 @@ class LoginBottonSheetViewController: UIViewController {
             loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
         let heightConstraint = loginView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
+    }
+    
+    private func bindViewModel(){
+        viewModel.sucessResult = { [weak self] in
+            let viewController = UIViewController()
+            viewController.view.backgroundColor = .red
+            self?.dismiss(animated: false)
+            self?.mainNavigation?.pushViewController(viewController, animated: true)
+        }
+            
     }
     
     private func setupGesture(){
