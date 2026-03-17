@@ -12,12 +12,14 @@ class LoginBottomSheetViewModel {
     var sucessResult: (() -> Void)?
     func doAuth(usernameLogin: String, password: String){
         print(usernameLogin)
-        Auth.auth().signIn(withEmail: usernameLogin, password: password){ [weak self] authResult, error in
+        Auth.auth().signIn(withEmail: usernameLogin, password: password){ [weak self] result, error in
             if let error = error {
                 print("Error signing in: \(error.localizedDescription)")
             } else {
                 self?.sucessResult?()
-                print(authResult, "User signed in successfully")
+                if let result = result {
+                    print(result, "User signed in successfully")
+                }
             }
         }
             

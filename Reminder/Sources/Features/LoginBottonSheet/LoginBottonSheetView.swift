@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class LoginBottomSheetView: UIView {
+class LoginBottomSheetView: UIView, UITextFieldDelegate {
     
     public weak var delegate: LoginBottomSheetViewDelegate?
     
@@ -54,6 +54,7 @@ class LoginBottomSheetView: UIView {
         text.autocapitalizationType = .none
         text.autocorrectionType = .no
         text.keyboardType = .emailAddress
+        text.returnKeyType = .next
         return text
     }()
     
@@ -67,6 +68,7 @@ class LoginBottomSheetView: UIView {
         text.textContentType = .password
         text.autocapitalizationType = .none
         text.autocorrectionType = .no
+        text.returnKeyType = .done
         return text
     }()
     
@@ -84,6 +86,8 @@ class LoginBottomSheetView: UIView {
     override init (frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         let exampleGest = UITapGestureRecognizer(target: self, action: #selector(exampleTaped))
         titleLabel.addGestureRecognizer(exampleGest)
         loginButton.addTarget(self, action: #selector(loginButtonDidTapped), for: .touchUpInside)
@@ -146,6 +150,16 @@ class LoginBottomSheetView: UIView {
         let password = passwordTextField.text ?? ""
         let user = emailTextField.text ?? ""
         delegate?.sendLoginData(user: user, password: password)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            loginButtonDidTapped()
+        }
+        return true
     }
     
 }

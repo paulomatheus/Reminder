@@ -13,13 +13,41 @@ class LoginBottonSheetViewController: UIViewController {
     let loginView = LoginBottomSheetView()
     let viewModel = LoginBottomSheetViewModel()
     var handlerAreaHeight: CGFloat = 50.0
+    var bottomConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loginView.delegate = self
         setupUI()
         setupGesture()
+        setupKeyboard()
         bindViewModel()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    private func setupKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            bottomConstraint?.constant = -keyboardHeight
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        bottomConstraint?.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     private func setupUI(){
@@ -30,12 +58,15 @@ class LoginBottonSheetViewController: UIViewController {
     }
     
     private func setupConstraints(){
+        bottomConstraint = loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         NSLayoutConstraint.activate([
             loginView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             loginView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            // loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor), // Removed to use property
         ])
-        let heightConstraint = loginView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
+        bottomConstraint?.isActive = true
+        let heightConstraint = loginView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5)
+        heightConstraint.isActive = true
     }
     
     private func bindViewModel(){
@@ -49,7 +80,12 @@ class LoginBottonSheetViewController: UIViewController {
     }
     
     private func setupGesture(){
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutside))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func handleTapOutside() {
+        self.view.endEditing(true)
     }
     
     private func handlePanGesture(){
