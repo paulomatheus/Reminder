@@ -50,7 +50,6 @@ class LoginBottomSheetView: UIView, UITextFieldDelegate {
         text.placeholder = "login.email.placeholter".localized
         text.borderStyle = .roundedRect
         text.translatesAutoresizingMaskIntoConstraints = false
-        // Melhor UX para campos de email/login
         text.autocapitalizationType = .none
         text.autocorrectionType = .no
         text.keyboardType = .emailAddress
@@ -63,7 +62,6 @@ class LoginBottomSheetView: UIView, UITextFieldDelegate {
         text.placeholder = "login.password.placeholder".localized
         text.borderStyle = .roundedRect
         text.translatesAutoresizingMaskIntoConstraints = false
-        // Tornar o campo seguro para esconder os caracteres ao digitar
         text.isSecureTextEntry = true
         text.textContentType = .password
         text.autocapitalizationType = .none
