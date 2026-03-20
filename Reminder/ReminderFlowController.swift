@@ -4,6 +4,7 @@
 //
 //  Created by Paulo Matheus on 18/03/26.
 //
+//MVVM-C - Model View ViewModel - Coordinator
 
 import Foundation
 import UIKit
@@ -11,16 +12,16 @@ import UIKit
 class ReminderFlowController {
     //MARK: - Properties
     private var navigationController: UINavigationController?
-  //  private let viewControllerFactory: ReminderViewControllerFactoryProtocol
+    private let viewControllerFactory: ViewControllersFactoryProtocol
 
     //MARK: - Init
     public init() {
-        
+        self.viewControllerFactory = ViewControllerFactory()
     }
     
     //MARK: - StarFlow
     func start() -> UINavigationController? {
-        let startViewController = SplashViewController(flowDelegate: self)
+        let startViewController = viewControllerFactory.makeSplashViewController(flowDelegate: self)
         self.navigationController = UINavigationController(rootViewController: startViewController)
         return navigationController
     }
@@ -40,7 +41,7 @@ extension ReminderFlowController: LoginBottomSheetFlowDelegate {
 //MARK: - Splash
 extension ReminderFlowController: SplashFlowDelegate {
     func openLoginBottomSheet() {
-        let loginBottomSheet = LoginBottonSheetViewController(flowDelegate: self)
+        let loginBottomSheet = viewControllerFactory.makeLoginBottomSheetViewController(flowDelegate: self)
         loginBottomSheet.modalTransitionStyle = .crossDissolve
         navigationController?.present(loginBottomSheet, animated: false) {
             loginBottomSheet.animateShow()
