@@ -26,7 +26,8 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupGesture()
-        decideNavigationFlow()
+        //decideNavigationFlow()
+        startBreathingAnimation()
     }
     
     private func decideNavigationFlow(){
@@ -47,10 +48,10 @@ class SplashViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-        contentView.topAnchor.constraint(equalTo: view.topAnchor),
-        contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         contentView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -62,9 +63,25 @@ class SplashViewController: UIViewController {
     
     @objc
     private func showLoginBottomSheet(){
+        animateLogoUp()
         self.flowDelegate?.openLoginBottomSheet()
         
     }
-
+    
 }
-
+//MARK: - Animations
+extension SplashViewController {
+    private func startBreathingAnimation() {
+        UIView.animate(withDuration: 1, delay: 0.0 ,animations: {
+            self.contentView.logoImageView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        }, completion: { _ in //termina a animacao e vai para o completion
+            self.decideNavigationFlow()
+        })
+    }
+    
+    private func animateLogoUp(){
+        UIView.animate(withDuration: 0.5,delay: 0.0,options: [.curveEaseOut], animations: {
+            self.contentView.logoImageView.transform = self.contentView.logoImageView.transform.translatedBy(x: 0, y: -50)
+        })
+    }
+}
