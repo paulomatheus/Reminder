@@ -11,5 +11,3 @@ struct User: Codable { //converte user para data
     let email: String
     let isUserSaved: Bool
 }
-
-
