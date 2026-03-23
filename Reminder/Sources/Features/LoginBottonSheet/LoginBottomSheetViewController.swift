@@ -73,7 +73,7 @@ class LoginBottomSheetViewController: UIViewController {
         NSLayoutConstraint.activate([
             contentView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            // loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor), // Removed to use property
+            // loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
         bottomConstraint?.isActive = true
         let heightConstraint = contentView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5)
@@ -84,6 +84,17 @@ class LoginBottomSheetViewController: UIViewController {
         viewModel.sucessResult = { [weak self] usernameLogin in
             self?.presentSaveLoginAlert(email: usernameLogin)
         }
+        
+        viewModel.errorResult = { [weak self] errorMessage in
+            self?.presentErrorAlert(message: errorMessage)
+        }
+    }
+    
+    private func presentErrorAlert(message: String){
+        let alertController = UIAlertController(title: "Erro ao logar", message: message, preferredStyle: .alert)
+        let retryAction = UIAlertAction(title: "Tentar novamente", style: .default)
+        alertController.addAction(retryAction)
+        self.present(alertController, animated: true)
     }
     
     private func presentSaveLoginAlert(email: String){
