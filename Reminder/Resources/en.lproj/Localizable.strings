@@ -15,6 +15,9 @@
 "login.passwordText.label.title" = "Senha";
 
 /* MARK: - HOME SCREEN */
+"home.welcome.label.title" = "Boas Vindas";
+"home.feedback.button.title" = "Avaliar";
+
 /* MARK: - Receipts SCREEN */
 /* MARK: - NewReceipt SCREEN */
 
