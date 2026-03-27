@@ -9,7 +9,6 @@ import Foundation
 
 protocol HomeFlowDelegate: AnyObject {
     init(content: HomeView, flowDelegate: HomeFlowDelegate)
-        
 }
 
 
