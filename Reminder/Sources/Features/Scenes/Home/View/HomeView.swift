@@ -97,7 +97,7 @@ class HomeView: UIView {
             profileImage.widthAnchor.constraint(equalToConstant: Metrics.profileImageSize),
             
             welcomeLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: Metrics.small),
-            welcomeLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor, constant: 12),
+            welcomeLabel.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: Metrics.little),
             nameLabel.leadingAnchor.constraint(equalTo: welcomeLabel.leadingAnchor),
