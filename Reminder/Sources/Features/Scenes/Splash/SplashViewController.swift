@@ -24,10 +24,10 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
         setupGesture()
         //decideNavigationFlow()
         startBreathingAnimation()
+        setup()
     }
     
     private func decideNavigationFlow(){

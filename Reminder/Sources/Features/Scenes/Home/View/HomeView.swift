@@ -20,7 +20,7 @@ class HomeView: UIView {
         let view = UIView()
         view.layer.cornerRadius = Metrics.medium
         view.layer.masksToBounds = true
-        view.backgroundColor = Colors.gray600
+        view.backgroundColor = Colors.gray800
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -63,8 +63,9 @@ class HomeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .gray
         setupView()
+        self.backgroundColor = .gray
+        
     }
     
     required init?(coder: NSCoder) {
@@ -73,12 +74,11 @@ class HomeView: UIView {
     
     private func setupView(){
         addSubview(profileBackground)
-        addSubview(contentBackground)
-        
         profileBackground.addSubview(profileImage)
         profileBackground.addSubview(welcomeLabel)
         profileBackground.addSubview(nameLabel)
         
+        addSubview(contentBackground)
         contentBackground.addSubview(feedbackButton)
         
         setupContraints()
@@ -102,7 +102,7 @@ class HomeView: UIView {
             nameLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: Metrics.little),
             nameLabel.leadingAnchor.constraint(equalTo: welcomeLabel.leadingAnchor),
             
-            contentBackground.topAnchor.constraint(equalTo: profileBackground.bottomAnchor),
+            contentBackground.topAnchor.constraint(equalTo: profileBackground.bottomAnchor, constant: -Metrics.medium),
             contentBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentBackground.bottomAnchor.constraint(equalTo: bottomAnchor),

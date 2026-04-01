@@ -25,15 +25,30 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupNavigationBar()
     }
 
+    private func setupNavigationBar(){
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.hidesBackButton = true
+        let logoutButton = UIBarButtonItem(image: UIImage(named: "log-out-icon"), style: .plain, target: self, action: #selector(logoutAction))
+        logoutButton.tintColor = Colors.primaryRedBase
+        navigationItem.rightBarButtonItem = logoutButton
+    }
     
     private func setup() {
         view.addSubview(contentView)
-        buildHierarchy()
+        view.backgroundColor = Colors.gray600
+        setupConstraints()
     }
     
-    private func buildHierarchy() {
+    private func setupConstraints() {
         setupContentViewToBounds(contentView: contentView)
+    }    
+    
+    @objc
+    private func logoutAction(){
+        UserDefaultsManager.removeUser()
+        self.flowDelegate.navigateToRecipes()
     }
 }
