@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
         setup()
         setupNavigationBar()
     }
-
+    
     private func setupNavigationBar(){
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.hidesBackButton = true
@@ -39,16 +39,49 @@ class HomeViewController: UIViewController {
     private func setup() {
         view.addSubview(contentView)
         view.backgroundColor = Colors.gray600
+        contentView.delegate = self
         setupConstraints()
     }
     
     private func setupConstraints() {
         setupContentViewToBounds(contentView: contentView)
-    }    
+    }
     
     @objc
     private func logoutAction(){
         UserDefaultsManager.removeUser()
         self.flowDelegate.logout()
     }
+}
+
+extension HomeViewController: HomeViewDelegate {
+    func didTapProfileImage() {
+        selectProfileImage()
+    }
+}
+
+extension HomeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func selectProfileImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info:
+                                       [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[.editedImage] as? UIImage {
+            contentView.profileImage.image = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            contentView.profileImage.image = originalImage
+        }
+        
+        dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
+    
 }
