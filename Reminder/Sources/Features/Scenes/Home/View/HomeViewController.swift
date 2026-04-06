@@ -60,6 +60,9 @@ class HomeViewController: UIViewController {
         if let user = UserDefaultsManager.loadUser() {
             contentView.nameTextField.text = UserDefaultsManager.loadUserName()
         }
+        if let savedImage = UserDefaultsManager.loadProfileImage() {
+            contentView.profileImage.image = savedImage
+        }
     }
 }
 
@@ -82,8 +85,10 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
                                        [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[.editedImage] as? UIImage {
             contentView.profileImage.image = editedImage
+            UserDefaultsManager.saveProfileImage(image: editedImage)
         } else if let originalImage = info[.originalImage] as? UIImage {
             contentView.profileImage.image = originalImage
+            UserDefaultsManager.saveProfileImage(image: originalImage)
         }
         
         dismiss(animated: true)
