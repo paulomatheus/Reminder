@@ -21,7 +21,8 @@ class ReminderFlowController {
     
     //MARK: - StarFlow
     func start() -> UINavigationController? {
-        let startViewController = viewControllerFactory.makeSplashViewController(flowDelegate: self)
+        //let startViewController = viewControllerFactory.makeSplashViewController(flowDelegate: self)
+        let startViewController = NewReceiptViewController()
         self.navigationController = UINavigationController(rootViewController: startViewController)
         return navigationController
     }

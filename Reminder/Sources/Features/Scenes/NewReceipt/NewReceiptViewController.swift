@@ -1,0 +1,38 @@
+//
+//  NewReceipt.swift
+//  Reminder
+//
+//  Created by Paulo Matheus on 07/04/26.
+//
+
+import Foundation
+import UIKit
+
+class NewReceiptViewController: UIViewController {
+    //private let newReceiptView: NewReceiptView?
+    private let newReceiptView = NewReceiptView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //newReceiptView = newReceiptView()
+        setupView()
+        //setupActions()
+    }
+    
+    private func setupView() {
+        view.backgroundColor = Colors.gray800
+        view.addSubview(newReceiptView)
+        
+        setupConstrains()
+    }
+    
+    private func setupConstrains() {
+        newReceiptView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newReceiptView.topAnchor.constraint(equalTo: view.topAnchor),
+            newReceiptView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newReceiptView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newReceiptView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+}
