@@ -56,6 +56,7 @@ class ButtonHomeView: UIView {
         titleLabel.text = title
         descriptionLabel.text = description
         setupSelfClass()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -96,7 +97,7 @@ class ButtonHomeView: UIView {
             descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: Metrics.medier),
             
             arrowImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Metrics.medier),
+            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Metrics.medier),
             arrowImageView.widthAnchor.constraint(equalToConstant: 16),
             arrowImageView.heightAnchor.constraint(equalToConstant: 16) 
         ])
