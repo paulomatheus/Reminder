@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class ButtonHomeView: UIView {
+    var tapAction: (() -> Void)?
+    
     private let iconView: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.gray600
@@ -55,7 +57,9 @@ class ButtonHomeView: UIView {
         iconImageView.image = icon
         titleLabel.text = title
         descriptionLabel.text = description
+        
         setupSelfClass()
+        setupGesture()
         setupUI()
     }
     
@@ -101,6 +105,16 @@ class ButtonHomeView: UIView {
             arrowImageView.widthAnchor.constraint(equalToConstant: 16),
             arrowImageView.heightAnchor.constraint(equalToConstant: 16) 
         ])
+    }
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target:self, action: #selector(handleTap))
+        self.addGestureRecognizer(tapGesture)
+        self.isUserInteractionEnabled = true
+    }
+    
+    @objc private func handleTap() {
+        tapAction?()
     }
     
 }

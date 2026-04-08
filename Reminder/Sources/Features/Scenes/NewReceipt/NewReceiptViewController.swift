@@ -9,19 +9,17 @@ import Foundation
 import UIKit
 
 class NewReceiptViewController: UIViewController {
-    //private let newReceiptView: NewReceiptView?
     private let newReceiptView = NewReceiptView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //newReceiptView = newReceiptView()
         setupView()
-        //setupActions()
+        setupActions()
     }
     
     private func setupView() {
         view.backgroundColor = Colors.gray800
-        view.addSubview(newReceiptView)
+        view.addSubview(newReceiptView)        
         
         setupConstrains()
     }
@@ -34,5 +32,13 @@ class NewReceiptViewController: UIViewController {
             newReceiptView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             newReceiptView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    private func setupActions() {
+        newReceiptView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
