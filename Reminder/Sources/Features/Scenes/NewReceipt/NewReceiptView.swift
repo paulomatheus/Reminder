@@ -43,6 +43,7 @@ class NewReceiptView: UIView {
         button.backgroundColor = Colors.primaryRedBase
         button.layer.cornerRadius = 12
         button.setTitleColor(Colors.gray800, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -69,7 +70,7 @@ class NewReceiptView: UIView {
             backButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Metrics.small),
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Metrics.high),
             backButton.heightAnchor.constraint(equalToConstant: 24),
-            backButton.heightAnchor.constraint(equalToConstant: 24),
+            backButton.widthAnchor.constraint(equalToConstant: 24),
             
             titleLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: Metrics.small),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Metrics.high),
@@ -81,7 +82,7 @@ class NewReceiptView: UIView {
             addButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Metrics.high),
             addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Metrics.high),
             addButton.heightAnchor.constraint(equalToConstant: 56),
-            addButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Metrics.high)
+            addButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Metrics.high)
             
         ])
     }
