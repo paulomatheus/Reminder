@@ -18,7 +18,7 @@ class DBHelper {
     }
     
     private func openDatabase() {
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathExtension("Reminder.sqlite")
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("Reminder.sqlite")
         
         if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
             print("Erro ao abrir o banco de dados")
@@ -32,7 +32,7 @@ class DBHelper {
             remedy TEXT,
             time TEXT,
             recurrence TEXT,
-            takeNow Integer
+            takeNow INTEGER
         );
         """
         
@@ -55,9 +55,9 @@ class DBHelper {
         
         if sqlite3_prepare_v2(db, insertQuery, -1, &statement, nil) == SQLITE_OK {
             sqlite3_bind_text(statement, 1, (remedy as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(statement, 1, (time as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(statement, 1, (recurrence as NSString).utf8String, -1, nil)
-            sqlite3_bind_int(statement, 1, (takeNow ? 1 : 0))
+            sqlite3_bind_text(statement, 2, (time as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(statement, 3, (recurrence as NSString).utf8String, -1, nil)
+            sqlite3_bind_int(statement, 4, (takeNow ? 1 : 0))
             
             if sqlite3_step(statement) == SQLITE_DONE {
                 print("Receita inserida com sucesso!")
