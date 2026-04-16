@@ -99,7 +99,9 @@ class NewReceiptView: UIView {
         
         setupTimeInput()
         setupRecurrenceInput()
+        setupObservers()
         setupConstrains()
+        validateInputs()
     }
     
     private func setupConstrains() {
@@ -165,11 +167,28 @@ class NewReceiptView: UIView {
         recurrencePicker.dataSource = self
     }
     
+    private func validateInputs() {
+        let isRemedyFilled = !(remedyInput.textField.text ?? "").isEmpty
+        let isTimeFilled = !(timeInput.textField.text ?? "").isEmpty
+        let isReccurenceFilled = !(recurrenceInput.textField.text ?? "").isEmpty
+        
+        addButton.isEnabled = isRemedyFilled && isTimeFilled && isReccurenceFilled
+        addButton.backgroundColor = addButton.isEnabled ? Colors.primaryRedBase : Colors.gray500
+    }
+    
+    private func setupObservers() {
+        remedyInput.textField.addTarget(self, action: #selector(inputDidChange), for: .editingChanged)
+        timeInput.textField.addTarget(self, action: #selector(inputDidChange), for: .editingChanged)
+        recurrenceInput.textField.addTarget(self, action: #selector(inputDidChange), for: .editingChanged)
+    }
+    
     @objc
     private func didSelectRecurrence() {
         let selectRow = recurrencePicker.selectedRow(inComponent: 0)
         recurrenceInput.textField.text = recurrenceOption[selectRow]
         recurrenceInput.textField.resignFirstResponder()
+        
+        validateInputs()
     }
     
     @objc
@@ -178,6 +197,13 @@ class NewReceiptView: UIView {
         formatter.timeStyle = .short
         timeInput.textField.text = formatter.string(from: timePicker.date)
         timeInput.textField.resignFirstResponder()
+        
+        validateInputs()
+    }
+    
+    @objc
+    private func inputDidChange() {
+        validateInputs()
     }
 }
 
