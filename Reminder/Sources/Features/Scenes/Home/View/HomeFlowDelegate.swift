@@ -9,6 +9,7 @@ import Foundation
 
 protocol HomeFlowDelegate: AnyObject {
     func navigateToRecipes()
+    func navigateToMyRecipes()
     func logout()
 }
 

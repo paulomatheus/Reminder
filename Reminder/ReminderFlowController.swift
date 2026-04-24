@@ -21,8 +21,8 @@ class ReminderFlowController {
     
     //MARK: - StarFlow
     func start() -> UINavigationController? {
-        //let startViewController = viewControllerFactory.makeSplashViewController(flowDelegate: self)
-        let startViewController = MyReceiptsViewController(contentView: MyReceiptsView())
+        let startViewController = viewControllerFactory.makeSplashViewController(flowDelegate: self)
+        //let startViewController = MyReceiptsViewController(contentView: MyReceiptsView())
         self.navigationController = UINavigationController(rootViewController: startViewController)
         return navigationController
     }
@@ -60,10 +60,23 @@ extension ReminderFlowController: HomeFlowDelegate {
         self.navigationController?.popViewController(animated: true)
         self.openLoginBottomSheet()
     }
+    func navigateToMyRecipes() {
+        let myReceiptsViewController = viewControllerFactory.makeMyReceiptsViewController(flowDelegate: self)
+        self.navigationController?.pushViewController(myReceiptsViewController, animated: true)
+        self.navigationController?.navigationBar.isHidden = true
+    }
     
     func navigateToRecipes(){
         let recipesViewController = viewControllerFactory.makeReceiptViewController()
         self.navigationController?.pushViewController(recipesViewController, animated: true)        
         self.navigationController?.navigationBar.isHidden = true
+    }
+}
+
+//MARK: - MyReceipts
+
+extension ReminderFlowController: MyReceiptsFlowDelegate {
+    func goToNewReceipts() {
+        
     }
 }
